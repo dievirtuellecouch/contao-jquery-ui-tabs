@@ -1,0 +1,35 @@
+{
+    "name": "dvc/contao-jquery-ui-tabs",
+    "description": "jQuery UI Tabs for Contao Open Source CMS",
+    "keywords": ["contao", "jquery", "tabs"],
+    "type": "contao-bundle",
+    "homepage": "https://d-v-c.net",
+    "license": "CC-BY-SA-4.0",
+    "authors": [
+        {
+            "name": "Timo Werlich",
+            "homepage": "https://www.websailing.de"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/dievirtuellecouch/contao-jquery-ui-tabs/issues",
+        "source": "https://github.com/dievirtuellecouch/contao-jquery-ui-tabs"
+    },
+    "require": {
+        "php": ">=8.1",
+        "contao/core-bundle": "~5.3 || ~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dvc\\ContaoJqueryUiTabs\\": "src/"
+        }
+    },
+    "extra": {
+        "contao-manager-plugin": "Dvc\\ContaoJqueryUiTabs\\ContaoManager\\Plugin",
+        "contao": {
+            "sources": {
+                "src/assets/jquery-ui-tabs": "assets/jquery-ui-tabs"
+            }
+        }
+    }
+}
