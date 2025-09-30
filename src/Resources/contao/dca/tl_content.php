@@ -69,23 +69,27 @@ $GLOBALS['TL_DCA']['tl_content']['subpalettes']['juiTabShowDropdown'] = 'juiTabD
 		'eval'			=> array('maxlength' => 255, 'allowHtml' => true, 'mandatory' => true, 'tl_class' => 'w50'),
 		'sql'			=> "varchar(255) NOT NULL default ''",
 	),
-	'juiTabAlias' => array(
-		'label'			=> &$GLOBALS['TL_LANG']['tl_content']['juiTabAlias'],
-		'exclude'		=> true,
-		'inputType'		=> 'text',
-		'eval'			=> array('rgxp' => 'alias', 'maxlength' => 128, 'tl_class' => 'w50', 'doNotCopy' => true),
-		'save_callback'	=> array(function($varValue, \Contao\DataContainer $dc) 
-		{
-			if ($varValue == '') {
-				$arrHeadline = \Contao\StringUtil::deserialize($dc->activeRecord->juiTabHeadline);
-				$varValue = \Contao\StringUtil::standardize(\Contao\StringUtil::restoreBasicEntities($arrHeadline['value']));
-				$varValue = preg_replace('/^id-/', '', $varValue);
-			}
-				
-			return $varValue;
-		}),
-		'sql'			=> "varchar(128) NOT NULL default ''",
-	),
+    'juiTabAlias' => array(
+        'label'			=> &$GLOBALS['TL_LANG']['tl_content']['juiTabAlias'],
+        'exclude'		=> true,
+        'inputType'		=> 'text',
+        'eval'			=> array('rgxp' => 'alias', 'maxlength' => 128, 'tl_class' => 'w50', 'doNotCopy' => true),
+        'save_callback'	=> array(function($varValue, \Contao\DataContainer $dc)
+        {
+            $source = $varValue;
+
+            if ($source === '') {
+                $arrHeadline = \Contao\StringUtil::deserialize($dc->activeRecord->juiTabHeadline);
+                $source = is_array($arrHeadline) ? ($arrHeadline['value'] ?? '') : $arrHeadline;
+            }
+
+            $varValue = \Contao\StringUtil::standardize(\Contao\StringUtil::restoreBasicEntities((string) $source));
+            $varValue = preg_replace('/^id-/', '', $varValue);
+
+            return $varValue;
+        }),
+        'sql'			=> "varchar(128) NOT NULL default ''",
+    ),
 	'juiTabShowDropdown' => array(
 		'label'			=> &$GLOBALS['TL_LANG']['tl_content']['juiTabShowDropdown'],
 		'exclude'		=> true,

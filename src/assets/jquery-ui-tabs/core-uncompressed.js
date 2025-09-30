@@ -105,9 +105,12 @@
 		},
 	});
 	
-	$(document).ready(function() 
-	{
-		var hash = window.location.hash.replace('#', '');
+    $(document).ready(function() 
+    {
+        // Initialize tabs on page load
+        $('section.ce_tabs').tabs();
+
+        var hash = window.location.hash.replace('#', '');
 		
 		if (hash && $('section.ce_tabs div#' + hash).length) 
 			setTimeout(function() 
@@ -116,10 +119,10 @@
 			}, 1);
 	});
 	
-	$(window).on('hashchange', function() 
-	{
-		var hash = window.location.hash.replace('#', '');
-		
-		$('section.ce_tabs').tabs('toggle', hash);
-	});
+    $(window).on('hashchange', function() 
+    {
+        var hash = window.location.hash.replace('#', '');
+        
+        $('section.ce_tabs').tabs('toggle', hash);
+    });
 })(jQuery);

@@ -4,6 +4,7 @@ namespace Dvc\ContaoJqueryUiTabs\Element;
 
 use Contao\BackendTemplate;
 use Contao\ContentElement;
+use Contao\System;
 
 class ContentTabStop extends ContentElement
 {
@@ -11,11 +12,12 @@ class ContentTabStop extends ContentElement
 
     protected function compile(): void
     {
-        $isBackend = \defined('TL_MODE') && TL_MODE === 'BE';
+        // Detect backend request (Contao 5.3+)
+        $request = System::getContainer()->get('request_stack')->getCurrentRequest();
+        $isBackend = $request && System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest($request);
         if ($isBackend) {
             $this->strTemplate = 'be_wildcard';
             $this->Template = new BackendTemplate($this->strTemplate);
         }
     }
 }
-
